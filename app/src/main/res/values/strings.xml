@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Lembrete Medico</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_profissionais">Profissionais</string>
+
+    <string-array name="especialidades_array">
+        <item>Médico</item>
+        <item>Psicologo</item>
+        <item>Odontólogo</item>
+        <item>Nutricionista</item>
+        <item>Fisioterapeuta</item>
+        <item>Fonoaudiólogo</item>
+        <item>Terapeuta Ocupacional</item>
+        <item>Enfermeiro</item>
+    </string-array>
+</resources>
