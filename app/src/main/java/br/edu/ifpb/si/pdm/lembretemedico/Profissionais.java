@@ -99,8 +99,6 @@ public class Profissionais extends AppCompatActivity implements AdapterView.OnIt
         public void onClick(View v) {
             String nome = Profissionais.this.etNome.getText().toString();
             String especialidade = especialidade_spinner.getSelectedItem().toString();
-            Log.v("item", especialidade);
-            //String especialidade = Profissionais.this.etEspecialidade.getText().toString();
             Profissionais.this.pd.inserir(new Profissional(nome,especialidade));
             Profissionais.this.atualizaAdapter();
             Log.i("LEMBRETEMEDIC", Profissionais.this.pd.get().toString());

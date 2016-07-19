@@ -14,23 +14,32 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
-public class AdicionarConsulta extends AppCompatActivity {
+import br.edu.ifpb.si.pdm.lembretemedico.bd.BancoHelper;
+import br.edu.ifpb.si.pdm.lembretemedico.bd.ProfissionalDAO;
+
+public class AdicionarConsulta extends AppCompatActivity implements
+        AdapterView.OnItemSelectedListener {
     private Button btnAddAlarm;
-    private TextView teste;
     private static TextView tvChangeTime;
     private static TextView tvChangeDate;
-    private EditText etMedico;
-    static final int DATE_DIALOG_ID = 999;
+   // private EditText etMedico;
+    private Spinner profissionais_spinner;
 
     private String medico;
     private long startTime;
@@ -52,20 +61,20 @@ public class AdicionarConsulta extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adicionar_consulta);
 
-        tvChangeDate = (TextView) findViewById(R.id.tvChangeDate);
-        tvChangeTime = (TextView) findViewById(R.id.tvChangeTime);
-        etMedico = (EditText) findViewById(R.id.etMedico);
-        btnAddAlarm = (Button) findViewById(R.id.btnAddAlarm);
+        instanciaComponentesInterface();
+        defineListeners();
 
+        // Loading spinner data from database
+        loadSpinnerData();
 
        btnAddAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addAlarm();
-                Log.i("TESTE","Chamou addalarm");
                 Intent it = new Intent();
-                String medico = etMedico.getText().toString();
-                it.putExtra("MEDICO",medico);
+                String profissional = profissionais_spinner.getSelectedItem().toString();
+                //String medico = etMedico.getText().toString();
+                it.putExtra("PROFISSIONAL",profissional);
                 it.putExtra("DATA", startTime);
                 setResult(RESULT_OK, it);
                 finish();
@@ -79,6 +88,52 @@ public class AdicionarConsulta extends AppCompatActivity {
         registerReceiver(receiver, filter);
     }
 
+    private void instanciaComponentesInterface(){
+        tvChangeDate = (TextView) findViewById(R.id.tvChangeDate);
+        tvChangeTime = (TextView) findViewById(R.id.tvChangeTime);
+        //etMedico = (EditText) findViewById(R.id.etMedico);
+        profissionais_spinner = (Spinner) findViewById(R.id.profissionais_spinner);
+        btnAddAlarm = (Button) findViewById(R.id.btnAddAlarm);
+
+    }
+
+    private void defineListeners(){
+//        this.btAdd.setOnClickListener(new OnClickBotao());
+//        this.lvProfissionais.setOnItemLongClickListener(new OnLongClickList());
+    }
+
+    // ## SPINNER
+    private void loadSpinnerData() {
+        // database handler
+        ProfissionalDAO pd = new ProfissionalDAO(getApplicationContext());
+
+        // Spinner Drop down elements
+        List<Profissional> profissionais = pd.get();
+
+        // Creating adapter for spinner
+        ArrayAdapter<Profissional> dataAdapter = new ArrayAdapter<Profissional>(this,
+                android.R.layout.simple_spinner_item, profissionais);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        profissionais_spinner.setAdapter(dataAdapter);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // On selecting a spinner item
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    // ## SPINNER end
+
     public void addAlarm(){
         Calendar calendar = Calendar.getInstance();
         calendar.set(AdicionarConsulta.year, AdicionarConsulta.month, AdicionarConsulta.day, AdicionarConsulta.hour,AdicionarConsulta.minutes, 0);
@@ -87,24 +142,28 @@ public class AdicionarConsulta extends AppCompatActivity {
         //#####
 
         Intent intent = new Intent("ALARM_ACTION");
-        String medico = etMedico.getText().toString();
+        String medico = profissionais_spinner.getSelectedItem().toString();
+        //String medico = etMedico.getText().toString();
         intent.putExtra("MEDICO",medico);
+        intent.putExtra("DATA",startTime);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, (int) (new Date()).getTime(), intent, 0);
         // Single alarms in 1, 2, ..., 10 minutes (in `i` minutes)
         alarms.set(AlarmManager.RTC_WAKEUP,
-                System.currentTimeMillis() + (startTime - System.currentTimeMillis()),
+                System.currentTimeMillis() + ( startTime - System.currentTimeMillis()),
                 pendingIntent);
 
         this.intentArray.add(pendingIntent);
 
         //####
 
-        btnAddAlarm.setText(String.valueOf(startTime));
-        teste = (TextView) findViewById(R.id.teste);
-        teste.setText(String.valueOf(System.currentTimeMillis()));
-        Log.i("TESTE","addalarm");
+//        btnAddAlarm.setText(String.valueOf(startTime));
+//        teste = (TextView) findViewById(R.id.teste);
+//        teste.setText(String.valueOf(System.currentTimeMillis()));
+//        Log.i("TESTE","addalarm");
     }
+
+
 
     public static class TimePickerFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
@@ -126,7 +185,7 @@ public class AdicionarConsulta extends AppCompatActivity {
             AdicionarConsulta.hour = hourOfDay;
             AdicionarConsulta.minutes = minute;
             AdicionarConsulta.tvChangeTime.setText(new StringBuilder().append(hourOfDay)
-                    .append("-").append(minute)
+                    .append(":").append(minute)
                     .append(" "));
         }
     }
@@ -158,7 +217,7 @@ public class AdicionarConsulta extends AppCompatActivity {
             AdicionarConsulta.day = day;
             AdicionarConsulta.tvChangeDate.setText(new StringBuilder()
                     // Month is 0 based, just add 1
-                    .append(month + 1).append("-").append(day).append("-")
+                    .append(day).append("/").append(month + 1).append("/")
                     .append(year).append(" "));
         }
     }

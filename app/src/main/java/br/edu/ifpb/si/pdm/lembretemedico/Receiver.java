@@ -14,6 +14,9 @@ import android.widget.Toast;
 
 import junit.framework.Test;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -34,11 +37,23 @@ public class Receiver extends BroadcastReceiver {
         Intent intent2 = new Intent(context, MainActivity.class);
         PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), intent2, 0);
 
+
+
+
+        // Create an instance of SimpleDateFormat used for formatting
+        // the string representation of date (month/day/year)
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date d = new Date();
+        d.setTime(intent.getLongExtra("DATA", -1));
+        // Using DateFormat format method we can create a string
+        // representation of a date with the defined format.
+        String data = df.format(d);
+
         // Build notification
-        // Actions are just fake
         Notification noti = new Notification.Builder(context)
-                .setContentTitle("New mail from " + "test@gmail.com")
-                .setContentText(intent.getStringExtra("MEDICO")).setSmallIcon(R.drawable.ic_local_hospital)
+                .setSmallIcon(R.drawable.ic_local_hospital_white)
+                .setContentTitle("Consulta com " + intent.getStringExtra("MEDICO"))
+                .setContentText( "Data: " + data )
                 .setContentIntent(pIntent)/*
                 .addAction(R.drawable.ic_menu_send, "Call", pIntent)
                 .addAction(R.drawable.ic_menu_send, "More", pIntent)

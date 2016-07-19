@@ -7,6 +7,7 @@ import java.util.Date;
  * Created by home on 17/07/2016.
  */
 public class Consulta {
+    private int id;
     private String medico;
     private String desc;
     private Date data;
@@ -47,6 +48,6 @@ public class Consulta {
     }
 
     public String toString(){
-        return this.getMedico()+"-"+getDesc()+"-"+getData();
+        return "Medico: "+this.getMedico()+"\nObs: "+getDesc()+"\nData: "+getData()+"\n";
     }
 }

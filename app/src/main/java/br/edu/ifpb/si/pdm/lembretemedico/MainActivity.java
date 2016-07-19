@@ -50,6 +50,10 @@ public class MainActivity extends AppCompatActivity
 
         this.carregarComponentes();
 
+//        ConsultaAdapter adapter = new ConsultaAdapter(this.cadastroLocal.get(), this);
+//        this.lvListaConsultas.setAdapter(adapter);
+//        this.lvListaConsultas.setOnItemClickListener(new OnClickList());
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -72,7 +76,6 @@ public class MainActivity extends AppCompatActivity
 
     private void carregarComponentes(){
         lvListaConsultas = (ListView) findViewById(R.id.lvListaConsultas);
-
         ArrayAdapter<Consulta> adapter = new ArrayAdapter<Consulta>(this, android.R.layout.simple_list_item_1, this.cadastroLocal.get());
         this.lvListaConsultas.setAdapter(adapter);
         this.lvListaConsultas.setOnItemClickListener(new OnClickList());
@@ -84,7 +87,7 @@ public class MainActivity extends AppCompatActivity
 
         if (resultCode == RESULT_OK){
             if (requestCode == ADD_CONSULTA){
-               Consulta consulta = new Consulta(data.getStringExtra("MEDICO"));
+                Consulta consulta = new Consulta(data.getStringExtra("PROFISSIONAL"));
                 Date d = new Date();
                 d.setTime(data.getLongExtra("DATA", -1));
                 consulta.setData(d);
@@ -96,13 +99,13 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    // onClick chama intent pra activity local dinamico
+    //TODO Adicionar activity que mostra a consulta. <action android:name="CONSULTA_INFO" /> no manifest
     private class OnClickList implements AdapterView.OnItemClickListener{
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            //TODO Adicionar activity que mostra a consulta. <action android:name="CONSULTA_INFO" /> no manifest
             /*
-            Consulta consulta =  (Consulta) parent.getAdapter().getItem(position);
-            // Adicionar activity que mostra a consulta. <action android:name="CONSULTA_INFO" /> no manifest
+             Consulta consulta =  (Consulta) parent.getAdapter().getItem(position);
             Intent it = new Intent("CONSULTA_INFO");
             it.putExtra("MEDICO", consulta.getMedico());
             setResult(RESULT_OK, it);
