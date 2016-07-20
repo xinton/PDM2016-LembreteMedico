@@ -21,11 +21,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AdicionarConsulta"></activity>
+        <activity
+            android:name=".AdicionarConsulta">
+        </activity>
         <activity
             android:name=".Profissionais"
             android:label="@string/title_activity_profissionais"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <receiver android:name=".Receiver">
+            <intent-filter>
+                <action android:name="ALARM_ACTION" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

@@ -39,11 +39,7 @@ public class Profissionais extends AppCompatActivity implements AdapterView.OnIt
 
         this.pd = new ProfissionalDAO(this);
 
-        ProfissionalAdapter adapter = new ProfissionalAdapter(this.pd.get(), this);
-        this.lvProfissionais.setAdapter(adapter);
-
         this.atualizaAdapter();
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +60,9 @@ public class Profissionais extends AppCompatActivity implements AdapterView.OnIt
         etNome = (EditText) findViewById(R.id.etNome);
         btAdd = (Button) findViewById(R.id.btAdd);
         lvProfissionais = (ListView) findViewById(R.id.lvProfissionais);
+
+        ProfissionalAdapter profAdapter = new ProfissionalAdapter(this.pd.get(), this);
+        this.lvProfissionais.setAdapter(profAdapter);
 
         especialidade_spinner = (Spinner) findViewById(R.id.especialidade_spinner);
         especialidade_spinner.setOnItemSelectedListener(this);

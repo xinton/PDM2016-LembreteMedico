@@ -1,15 +1,12 @@
 package br.edu.ifpb.si.pdm.lembretemedico;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
+
+
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,8 +20,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity
@@ -49,10 +44,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         this.carregarComponentes();
-
-//        ConsultaAdapter adapter = new ConsultaAdapter(this.cadastroLocal.get(), this);
-//        this.lvListaConsultas.setAdapter(adapter);
-//        this.lvListaConsultas.setOnItemClickListener(new OnClickList());
+        this.atualizaAdapter();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -76,9 +68,17 @@ public class MainActivity extends AppCompatActivity
 
     private void carregarComponentes(){
         lvListaConsultas = (ListView) findViewById(R.id.lvListaConsultas);
-        ArrayAdapter<Consulta> adapter = new ArrayAdapter<Consulta>(this, android.R.layout.simple_list_item_1, this.cadastroLocal.get());
+//      ArrayAdapter<Consulta> adapter = new ArrayAdapter<Consulta>(this, android.R.layout.simple_list_item_1, this.cadastroLocal.get());
+//      this.lvListaConsultas.setAdapter(adapter);
+//      this.lvListaConsultas.setOnItemClickListener(new OnClickList());
+
+        ConsultaAdapter adapter = new ConsultaAdapter(this.cadastroLocal.get(), this);
         this.lvListaConsultas.setAdapter(adapter);
         this.lvListaConsultas.setOnItemClickListener(new OnClickList());
+    }
+
+    private void atualizaAdapter(){
+        this.lvListaConsultas.setAdapter(new ConsultaAdapter( this.cadastroLocal.get() , this));
     }
 
     @Override
@@ -94,7 +94,8 @@ public class MainActivity extends AppCompatActivity
 
                 // Notifica o novo cadastro
                 this.cadastroLocal.get().add(consulta);
-                ((ArrayAdapter)lvListaConsultas.getAdapter()).notifyDataSetChanged();
+                //((ArrayAdapter)lvListaConsultas.getAdapter()).notifyDataSetChanged();
+                MainActivity.this.atualizaAdapter();
             }
         }
     }
@@ -151,11 +152,17 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+//        Fragment fragment;
 
         if (id == R.id.nav_addMedic) {
             Intent intent = new Intent(this, Profissionais.class);
             startActivity(intent);
         } else if (id == R.id.nav_addHospital) {
+//
+//            fragment = new ExampleFragment();
+//            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//            ft.replace(R.id.example_fragment, fragment);
+//            ft.commit();
 
         } else if (id == R.id.nav_addAlarm) {
 

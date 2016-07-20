@@ -27,18 +27,16 @@ public class Receiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        // TODO Auto-generated method stub
-        String action = intent.getAction();
-        Log.i("Receiver", "Broadcast received: " + action);
-       Log.i("Receiver", ":: " + intent.getStringExtra("MEDICO"));
+
+        CharSequence text = "Hello toast!";
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
 
         // Prepare intent which is triggered if the
         // notification is selected
         Intent intent2 = new Intent(context, MainActivity.class);
         PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), intent2, 0);
-
-
-
 
         // Create an instance of SimpleDateFormat used for formatting
         // the string representation of date (month/day/year)
@@ -54,15 +52,13 @@ public class Receiver extends BroadcastReceiver {
                 .setSmallIcon(R.drawable.ic_local_hospital_white)
                 .setContentTitle("Consulta com " + intent.getStringExtra("MEDICO"))
                 .setContentText( "Data: " + data )
-                .setContentIntent(pIntent)/*
-                .addAction(R.drawable.ic_menu_send, "Call", pIntent)
-                .addAction(R.drawable.ic_menu_send, "More", pIntent)
-                .addAction(R.drawable.ic_menu_send, "And more", pIntent)*/
+                .setContentIntent(pIntent)
                 .build();
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         // hide the notification after its selected
         noti.flags |= Notification.FLAG_AUTO_CANCEL;
 
+//        notificationManager.notify(0, noti);
         notificationManager.notify((int) (new Date()).getTime()-1, noti);
     }
 

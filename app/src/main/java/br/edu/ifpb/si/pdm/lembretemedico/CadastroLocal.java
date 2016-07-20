@@ -1,6 +1,7 @@
 package br.edu.ifpb.si.pdm.lembretemedico;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ public class CadastroLocal {
     }
 
     private void insere(){
-        this.consultas.add(new Consulta("local"));
+        this.consultas.add(new Consulta("local","desc",new Date()));
     }
 
     public List<Consulta> get(){

@@ -24,6 +24,17 @@ public class BancoHelper extends SQLiteOpenHelper {
                         "especialidade string" +
                      ");";
         db.execSQL(sql);
+
+        String sql2 = "create table consulta(" +
+                "id integer primary key autoincrement not null, " +
+                "profissional string," +
+                "data TIMESTAMP" +
+                "desc string" +
+                ");";
+        db.execSQL(sql2);
+
+        String sqlInsert = "insert into profissional values (0,'Kamila','Psicologo');";
+        db.execSQL(sqlInsert);
         //Log.i("BLACKLIST", "Tabela profissional criada.");
     }
 

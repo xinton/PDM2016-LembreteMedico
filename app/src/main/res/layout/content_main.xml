@@ -10,12 +10,21 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="br.edu.ifpb.si.pdm.lembretemedico.MainActivity"
-    tools:showIn="@layout/app_bar_main">
+    tools:showIn="@layout/app_bar_main"
+    android:orientation="vertical">
 
     <ListView
         android:id="@+id/lvListaConsultas"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:dividerHeight="4dp" >
 
     </ListView>
+
+    <!--<fragment-->
+        <!--android:id="@+id/example_fragment"-->
+        <!--android:name="br.edu.ifpb.si.pdm.lembretemedico.ExampleFragment"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"/>-->
+
 </LinearLayout>

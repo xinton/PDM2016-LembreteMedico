@@ -84,14 +84,13 @@ public class AdicionarConsulta extends AppCompatActivity implements
         intentArray = new ArrayList<PendingIntent>();
         alarms = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
         receiver = new Receiver();
-        filter = new IntentFilter("ALARM_ACTION");
-        registerReceiver(receiver, filter);
+        //filter = new IntentFilter("ALARM_ACTION");
+//        registerReceiver(receiver, filter);
     }
 
     private void instanciaComponentesInterface(){
         tvChangeDate = (TextView) findViewById(R.id.tvChangeDate);
         tvChangeTime = (TextView) findViewById(R.id.tvChangeTime);
-        //etMedico = (EditText) findViewById(R.id.etMedico);
         profissionais_spinner = (Spinner) findViewById(R.id.profissionais_spinner);
         btnAddAlarm = (Button) findViewById(R.id.btnAddAlarm);
 
@@ -143,24 +142,19 @@ public class AdicionarConsulta extends AppCompatActivity implements
 
         Intent intent = new Intent("ALARM_ACTION");
         String medico = profissionais_spinner.getSelectedItem().toString();
-        //String medico = etMedico.getText().toString();
         intent.putExtra("MEDICO",medico);
         intent.putExtra("DATA",startTime);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, (int) (new Date()).getTime(), intent, 0);
-        // Single alarms in 1, 2, ..., 10 minutes (in `i` minutes)
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,(int) (new Date()).getTime(), intent, 0);
         alarms.set(AlarmManager.RTC_WAKEUP,
-                System.currentTimeMillis() + ( startTime - System.currentTimeMillis()),
+                startTime ,
                 pendingIntent);
+
+        //alarms.cancel(pendingIntent);
 
         this.intentArray.add(pendingIntent);
 
         //####
-
-//        btnAddAlarm.setText(String.valueOf(startTime));
-//        teste = (TextView) findViewById(R.id.teste);
-//        teste.setText(String.valueOf(System.currentTimeMillis()));
-//        Log.i("TESTE","addalarm");
     }
 
 
@@ -227,10 +221,19 @@ public class AdicionarConsulta extends AppCompatActivity implements
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
-    @Override
-    protected void onStop()
-    {
-        unregisterReceiver(receiver);
-        super.onStop();
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//
+//        registerReceiver(this.receiver, this.filter);
+////        registerReceiver(this.cri, this.itf);
+//    }
+//
+//
+//    @Override
+//    protected void onStop()
+//    {
+//        unregisterReceiver(receiver);
+//        super.onStop();
+//    }
 }
