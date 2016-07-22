@@ -37,8 +37,6 @@ public class Profissionais extends AppCompatActivity implements AdapterView.OnIt
         this.instanciaComponentesInterface();
         this.defineListeners();
 
-        this.pd = new ProfissionalDAO(this);
-
         this.atualizaAdapter();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -56,6 +54,9 @@ public class Profissionais extends AppCompatActivity implements AdapterView.OnIt
     }
 
     private void instanciaComponentesInterface(){
+
+        this.pd = new ProfissionalDAO(this);
+
         //etEspecialidade = (EditText) findViewById(R.id.etEspecialidade);
         etNome = (EditText) findViewById(R.id.etNome);
         btAdd = (Button) findViewById(R.id.btAdd);

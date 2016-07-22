@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,7 +18,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.Date;
@@ -159,15 +159,20 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_addHospital) {
 //
-//            fragment = new ExampleFragment();
+//            fragment = new Fragment();
 //            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//            ft.replace(R.id.example_fragment, fragment);
+//            ft.replace(R.id.mainFrame, fragment);
 //            ft.commit();
 
         } else if (id == R.id.nav_addAlarm) {
-
+//            LayoutInflater inflater = getLayoutInflater();
+//            LinearLayout container = (LinearLayout) findViewById(R.id.content_frame);
+//            inflater.inflate(R.layout.activity_main, container);
         } else if (id == R.id.nav_planos) {
-
+//            fragment by replacing any existing fragment
+//            getFragmentManager().beginTransaction()
+//                    .replace(R.id.content_frame, fragment)
+//                    .commit();
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_lembreteMedicamento) {
