@@ -18,17 +18,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
-import android.widget.ListView;
 
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    ConsultaListFragment consultaListFragment;
     // Substituir por BD
-    private CadastroLocal cadastroLocal;
+    public static CadastroLocal cadastroLocal;
 
-    private ListView lvListaConsultas;
+//    private ListView lvListaConsultas;
+
+    ConsultaAdapter adapter;
 
     private static final int ADD_CONSULTA = 1;
 
@@ -43,8 +45,9 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        this.carregarComponentes();
-        this.atualizaAdapter();
+//        this.carregarComponentes();
+        adapter = new ConsultaAdapter(this.cadastroLocal.get(), this);
+//        this.atualizaAdapter();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -66,20 +69,17 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private void carregarComponentes(){
-        lvListaConsultas = (ListView) findViewById(R.id.lvListaConsultas);
-//      ArrayAdapter<Consulta> adapter = new ArrayAdapter<Consulta>(this, android.R.layout.simple_list_item_1, this.cadastroLocal.get());
-//      this.lvListaConsultas.setAdapter(adapter);
-//      this.lvListaConsultas.setOnItemClickListener(new OnClickList());
-
-        ConsultaAdapter adapter = new ConsultaAdapter(this.cadastroLocal.get(), this);
-        this.lvListaConsultas.setAdapter(adapter);
-        this.lvListaConsultas.setOnItemClickListener(new OnClickList());
-    }
-
-    private void atualizaAdapter(){
-        this.lvListaConsultas.setAdapter(new ConsultaAdapter( this.cadastroLocal.get() , this));
-    }
+//    private void carregarComponentes(){
+//        lvListaConsultas = (ListView) findViewById(R.id.lvListaConsultas);
+//
+//        ConsultaAdapter adapter = new ConsultaAdapter(this.cadastroLocal.get(), this);
+//        this.lvListaConsultas.setAdapter(adapter);
+//        this.lvListaConsultas.setOnItemClickListener(new OnClickList());
+//    }
+//
+//    private void atualizaAdapter(){
+//        this.lvListaConsultas.setAdapter(new ConsultaAdapter( this.cadastroLocal.get() , this));
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -94,8 +94,16 @@ public class MainActivity extends AppCompatActivity
 
                 // Notifica o novo cadastro
                 this.cadastroLocal.get().add(consulta);
-                //((ArrayAdapter)lvListaConsultas.getAdapter()).notifyDataSetChanged();
-                MainActivity.this.atualizaAdapter();
+//              MainActivity.this.atualizaAdapter();
+
+               //TODO TIRAR ESTA GAMBIS!
+                Fragment fragment = new ConsultaListFragment();
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.fragment_container, fragment);
+                ft.commit();
+
+                //TODO Usar "isto"?
+                this.adapter.notifyDataSetChanged();
             }
         }
     }
@@ -152,30 +160,33 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-//        Fragment fragment;
 
         if (id == R.id.nav_addMedic) {
-            Intent intent = new Intent(this, Profissionais.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_addHospital) {
-//
-//            fragment = new Fragment();
-//            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//            ft.replace(R.id.mainFrame, fragment);
-//            ft.commit();
+//            Intent intent = new Intent(this, Profissionais.class);
+//            startActivity(intent);
 
-        } else if (id == R.id.nav_addAlarm) {
+            Fragment fragment = new ProfissionalListFragment();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.fragment_container, fragment);
+            ft.commit();
+
+        } else if (id == R.id.nav_addHospital) {
+
 //            LayoutInflater inflater = getLayoutInflater();
 //            LinearLayout container = (LinearLayout) findViewById(R.id.content_frame);
 //            inflater.inflate(R.layout.activity_main, container);
-        } else if (id == R.id.nav_planos) {
-//            fragment by replacing any existing fragment
-//            getFragmentManager().beginTransaction()
-//                    .replace(R.id.content_frame, fragment)
-//                    .commit();
-        } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_lembreteMedicamento) {
+        } else if (id == R.id.nav_addConsulta) {
+            Fragment fragment = new ConsultaListFragment();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.fragment_container, fragment);
+            ft.commit();
+        }
+        else if (id == R.id.nav_addAlarm) {
+
+        } else if (id == R.id.nav_planos) {
+
+        }  else if (id == R.id.nav_lembreteMedicamento) {
 
         }
 

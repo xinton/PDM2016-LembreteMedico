@@ -113,9 +113,8 @@ public class AdicionarConsulta extends AppCompatActivity implements
         ArrayAdapter<Profissional> dataAdapter = new ArrayAdapter<Profissional>(this,
                 android.R.layout.simple_spinner_item, profissionais);
 
-        // Drop down layout style - list view with radio button
-        dataAdapter
-                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Drop down layout style
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // attaching data adapter to spinner
         profissionais_spinner.setAdapter(dataAdapter);
