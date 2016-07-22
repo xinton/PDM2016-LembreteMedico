@@ -38,7 +38,7 @@ public class AdicionarConsulta extends AppCompatActivity implements
     private Button btnAddAlarm;
     private static TextView tvChangeTime;
     private static TextView tvChangeDate;
-   // private EditText etMedico;
+    private EditText etObs;
     private Spinner profissionais_spinner;
 
     private String medico;
@@ -73,9 +73,11 @@ public class AdicionarConsulta extends AppCompatActivity implements
                 addAlarm();
                 Intent it = new Intent();
                 String profissional = profissionais_spinner.getSelectedItem().toString();
-                //String medico = etMedico.getText().toString();
+                String obs  = etObs.getText().toString();
+
                 it.putExtra("PROFISSIONAL",profissional);
                 it.putExtra("DATA", startTime);
+                it.putExtra("OBS", obs);
                 setResult(RESULT_OK, it);
                 finish();
             }
@@ -91,6 +93,7 @@ public class AdicionarConsulta extends AppCompatActivity implements
     private void instanciaComponentesInterface(){
         tvChangeDate = (TextView) findViewById(R.id.tvChangeDate);
         tvChangeTime = (TextView) findViewById(R.id.tvChangeTime);
+        etObs = (EditText) findViewById(R.id.etObs);
         profissionais_spinner = (Spinner) findViewById(R.id.profissionais_spinner);
         btnAddAlarm = (Button) findViewById(R.id.btnAddAlarm);
 
@@ -113,9 +116,8 @@ public class AdicionarConsulta extends AppCompatActivity implements
         ArrayAdapter<Profissional> dataAdapter = new ArrayAdapter<Profissional>(this,
                 android.R.layout.simple_spinner_item, profissionais);
 
-        // Drop down layout style - list view with radio button
-        dataAdapter
-                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Drop down layout style
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // attaching data adapter to spinner
         profissionais_spinner.setAdapter(dataAdapter);

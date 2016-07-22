@@ -3,6 +3,18 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_addConsulta"
+            android:icon="@drawable/ic_action_calendar_day"
+            android:title="Consultas" />
+        <item
+            android:id="@+id/nav_addAlarm"
+            android:icon="@drawable/ic_add_alert"
+            android:title="Adicionar Lembrete" />
+        <item
+            android:id="@+id/nav_lembreteMedicamento"
+            android:icon="@drawable/ic_local_pharmacy"
+            android:title="Medicamento" />
+        <item
             android:id="@+id/nav_addMedic"
             android:icon="@drawable/ic_assignment_ind"
             android:title="Profissionais de Saúde" />
@@ -14,24 +26,18 @@
             android:id="@+id/nav_planos"
             android:icon="@drawable/ic_book"
             android:title="Planos de Saúde" />
-        <item
-            android:id="@+id/nav_addAlarm"
-            android:icon="@drawable/ic_add_alert"
-            android:title="Adicionar Alarme" />
-        <item
-            android:id="@+id/nav_lembreteMedicamento"
-            android:icon="@drawable/ic_local_pharmacy"
-            android:title="Lembrete Medicamento" />
+
+
 
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-        </menu>
-    </item>
+    <!--<item android:title="Communicate">-->
+        <!--<menu>-->
+            <!--<item-->
+                <!--android:id="@+id/nav_share"-->
+                <!--android:icon="@drawable/ic_menu_share"-->
+                <!--android:title="Share" />-->
+        <!--</menu>-->
+    <!--</item>-->
 
 </menu>

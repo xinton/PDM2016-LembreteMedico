@@ -9,12 +9,12 @@ import java.util.Date;
 public class Consulta {
     private int id;
     private String medico;
-    private String desc;
+    private String obs;
     private Date data;
 
-    public Consulta(String medico, String desc, Date data) {
+    public Consulta(String medico, String obs, Date data) {
         this.medico = medico;
-        this.desc = desc;
+        this.obs = obs;
         this.data = data;
     }
 
@@ -31,12 +31,12 @@ public class Consulta {
         this.medico = medico;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getObs() {
+        return obs;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setObs(String obs) {
+        this.obs = obs;
     }
 
     public Date getData() {
@@ -48,6 +48,6 @@ public class Consulta {
     }
 
     public String toString(){
-        return "Medico: "+this.getMedico()+"\nObs: "+getDesc()+"\nData: "+getData()+"\n";
+        return "Medico: "+this.getMedico()+"\nObs: "+getObs()+"\nData: "+getData()+"\n";
     }
 }
