@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity
                 Date d = new Date();
                 d.setTime(data.getLongExtra("DATA", -1));
                 consulta.setData(d);
+                consulta.setObs(data.getStringExtra("OBS"));
 
                 // Notifica o novo cadastro
                 this.cadastroLocal.get().add(consulta);

@@ -1,23 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--<LinearLayout-->
+    <!--android:background="@drawable/custom_shape"-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/tvNomeProfissionalLayout"-->
+        <!--android:textSize="20sp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"/>-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/tvEspecialidadeProfissionalLayout"-->
+        <!--android:textSize="20sp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"/>-->
+    <!--&lt;!&ndash;android:layout_gravity="bottom|end"&ndash;&gt;-->
+<!--</LinearLayout>-->
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/custom_shape"
+    android:padding="10sp">
 
-    <TextView
-        android:id="@+id/tvNomeProfissionalLayout"
-        android:textSize="20sp"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"/>
+        android:layout_weight="9">
 
-    <TextView
-        android:id="@+id/tvEspecialidadeProfissionalLayout"
-        android:textSize="20sp"
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_account_circle_48dp"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"/>
-    <!--android:layout_gravity="bottom|end"-->
+        android:layout_weight="3">
+
+        <TextView
+            android:id="@+id/tvNomeProfissionalLayout"
+            android:textSize="20sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/tvEspecialidadeProfissionalLayout"
+            android:textSize="20sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/tvDescLayout"
+            android:textSize="20sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"/>
+        <!--android:layout_gravity="bottom|end"-->
+    </LinearLayout>
+
 </LinearLayout>

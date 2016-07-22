@@ -58,7 +58,6 @@ public class ProfissionalListFragment extends Fragment {
         btAdd = (Button) v.findViewById(R.id.btAdd);
         lvProfissionais = (ListView) v.findViewById(R.id.lvProfissionais);
 
-
         profAdapter = new ProfissionalAdapter(this.pd.get(), inflater.getContext());
         this.lvProfissionais.setAdapter(profAdapter);
 //        setListAdapter(profAdapter);
@@ -84,6 +83,8 @@ public class ProfissionalListFragment extends Fragment {
             String nome = ProfissionalListFragment.this.etNome.getText().toString();
             String especialidade = especialidade_spinner.getSelectedItem().toString();
             ProfissionalListFragment.this.pd.inserir(new Profissional(nome,especialidade));
+
+            ProfissionalListFragment.this.lvProfissionais.setAdapter(profAdapter);
             profAdapter.notifyDataSetChanged();
         }
     }
@@ -94,6 +95,8 @@ public class ProfissionalListFragment extends Fragment {
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
             Profissional p = (Profissional) parent.getAdapter().getItem(position);
             ProfissionalListFragment.this.pd.remover(p);
+
+            ProfissionalListFragment.this.lvProfissionais.setAdapter(profAdapter);
             profAdapter.notifyDataSetChanged();
             return true;
         }

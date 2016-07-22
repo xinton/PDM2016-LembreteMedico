@@ -60,7 +60,7 @@ public class ConsultaAdapter extends BaseAdapter {
         String data = df.format(c.getData());
         tvDataLayout.setText( data );
 
-        tvDescLayout.setText( c.getDesc() );
+        tvDescLayout.setText( c.getObs() );
 
         return view;
     }
